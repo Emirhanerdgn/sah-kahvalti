@@ -84,6 +84,10 @@ em { font-style: italic; color: var(--pomegranate); font-variation-settings: 'SO
 .btn-ghost-light { background: transparent; color: var(--cream-on-dark); border-color: rgba(243, 233, 216, 0.35); box-shadow: none; }
 .btn-ghost-light:hover { background: rgba(243, 233, 216, 0.1); border-color: var(--cream-on-dark); }
 .btn-wide { width: 100%; }
+.btn-google { background: #fff; color: var(--ink); border-color: #fff; box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.6); }
+.btn-google:hover { background: #fff8ec; }
+.btn-google svg { width: 18px; height: 18px; color: #f4b400; }
+.g-score { background: var(--ink); color: #fff; border-radius: 999px; padding: 0.1rem 0.5rem; font-size: 0.8rem; margin-left: 0.2rem; }
 
 /* NAV */
 .nav {
