@@ -1,0 +1,63 @@
+/* Tam ekran video giriş (ana sayfa) */
+
+.hero--video {
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: 100svh;
+  grid-template-columns: minmax(0, 44rem) 1fr;
+  align-items: end;
+  padding-bottom: clamp(3rem, 8vh, 6rem);
+  color: var(--cream-on-dark);
+  background: #2b1d14;
+}
+.hero-media { position: absolute; inset: 0; z-index: -1; }
+.hero-media video {
+  width: 100%; height: 100%; object-fit: cover; object-position: 62% 55%;
+  display: block;
+}
+/* okunabilirlik: soldan koyu geçiş + alttan hafif karartma */
+.hero-media::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(28, 19, 12, 0.86) 0%, rgba(28, 19, 12, 0.62) 34%, rgba(28, 19, 12, 0.12) 64%, rgba(28, 19, 12, 0) 80%),
+    linear-gradient(0deg, rgba(28, 19, 12, 0.55) 0%, rgba(28, 19, 12, 0) 38%),
+    linear-gradient(180deg, rgba(28, 19, 12, 0.45) 0%, rgba(28, 19, 12, 0) 18%);
+}
+
+.hero--video h1 { color: #fbf4e8; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.25); }
+.hero--video h1 em { color: #f1c79b; }
+.hero--video .lead { color: rgba(243, 233, 216, 0.9); }
+.hero--video .lead strong { color: #fff; }
+.hero--video .eyebrow { border-color: rgba(243, 233, 216, 0.3); background: rgba(28, 19, 12, 0.35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.hero--video .hero-facts { border-top-color: rgba(243, 233, 216, 0.22); }
+.hero--video .hero-facts dt { color: #fbf4e8; }
+.hero--video .hero-facts dd { color: rgba(243, 233, 216, 0.75); }
+
+.hero--video .hero-visual { height: auto; align-self: end; justify-self: end; }
+.hero--video .stamp { position: relative; right: 0; bottom: 0; width: clamp(120px, 11vw, 160px); }
+
+/* menü çubuğu video üzerindeyken açık renk (sayfa kayınca eski haline döner) */
+@media (min-width: 861px) {
+  .nav:not(.scrolled) .nav-links a,
+  .nav:not(.scrolled) .brand-text { color: #fbf4e8; }
+  .nav:not(.scrolled) .brand-text small { color: rgba(243, 233, 216, 0.75); }
+  .nav:not(.scrolled) .nav-links a::after { background: #f1c79b; }
+}
+@media (max-width: 860px) {
+  .nav:not(.scrolled):not(.menu-open) .brand-text { color: #fbf4e8; }
+  .nav:not(.scrolled):not(.menu-open) .brand-text small { color: rgba(243, 233, 216, 0.75); }
+  .nav:not(.scrolled):not(.menu-open) .burger span { background: #fbf4e8; }
+
+  .hero--video { grid-template-columns: 1fr; min-height: 100svh; padding-top: 7rem; }
+  .hero-media video { object-position: 64% 50%; }
+  .hero-media::after {
+    background:
+      linear-gradient(0deg, rgba(28, 19, 12, 0.9) 0%, rgba(28, 19, 12, 0.62) 42%, rgba(28, 19, 12, 0.12) 72%, rgba(28, 19, 12, 0.4) 100%);
+  }
+  .hero--video .hero-visual { position: absolute; top: 5.5rem; right: 1rem; }
+  .hero--video .stamp { width: 96px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-media video { display: none; }
+  .hero-media { background: url('../assets/video/hero-poster.jpg') 62% 55% / cover no-repeat; }
+}

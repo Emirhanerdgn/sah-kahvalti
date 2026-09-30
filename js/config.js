@@ -21,8 +21,6 @@ window.SAH_CONFIG = Object.freeze({
   ],
 
   images: Object.freeze({
-    hero: IMG('gozleme-ayran'),
-    heroSmall: IMG('kasar'),
     tray: IMG('bahce-sofra'),
     gozleme: IMG('seyhan-baci-yufka'),
     menemen: IMG('menemen-sofra'),

@@ -31,7 +31,7 @@ LOGIN_LIMIT = (5, 15 * 60)       # 15 dakikada 5 hatalı deneme
 ORDER_LIMIT = (8, 60 * 60)       # saatte 8 sipariş / IP
 # Sadece bu klasörler ve kökteki bu uzantılar sunulur (izin listesi; küçük harfe çevrilerek karşılaştırılır).
 PUBLIC_DIRS = {"css", "js", "assets", "panel"}
-PUBLIC_EXTS = {".html", ".css", ".js", ".svg", ".jpg", ".jpeg", ".png", ".webp", ".ico", ".woff2"}
+PUBLIC_EXTS = {".html", ".css", ".js", ".svg", ".jpg", ".jpeg", ".png", ".webp", ".ico", ".woff2", ".mp4", ".json"}
 REQUEST_TIMEOUT = 15
 
 CSP = (
@@ -376,13 +376,32 @@ class Handler(BaseHTTPRequestHandler):
         if ctype.startswith("text/") or ctype in ("application/javascript", "image/svg+xml"):
             ctype += "; charset=utf-8"
         body = target.read_bytes()
-        self.send_response(200)
+        status, start, end = 200, 0, len(body) - 1
+        m = re.fullmatch(r"bytes=(\d*)-(\d*)", self.headers.get("Range", "").strip())
+        if m and (m.group(1) or m.group(2)):
+            # Safari videoyu parça parça (Range) ister
+            if m.group(1):
+                start = int(m.group(1))
+                end = min(int(m.group(2)), len(body) - 1) if m.group(2) else len(body) - 1
+            else:
+                start = max(0, len(body) - int(m.group(2)))
+            if start > end or start >= len(body):
+                self.send_response(416)
+                self.send_header("Content-Range", f"bytes */{len(body)}")
+                self.end_headers()
+                return
+            status = 206
+        chunk = body[start:end + 1]
+        self.send_response(status)
         self.send_header("Content-Type", ctype)
-        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Content-Length", str(len(chunk)))
+        self.send_header("Accept-Ranges", "bytes")
+        if status == 206:
+            self.send_header("Content-Range", f"bytes {start}-{end}/{len(body)}")
         cache = "no-cache" if target.suffix in (".html", ".js", ".css") else "public, max-age=604800"
         self.send_header("Cache-Control", cache)
         self.end_headers()
-        self.wfile.write(body)
+        self.wfile.write(chunk)
 
 
 def secure_cookies() -> bool:

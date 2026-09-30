@@ -75,6 +75,18 @@ class StaticFileTests(ServerTestCase):
         self.assertEqual(res.getheader("X-Content-Type-Options"), "nosniff")
         self.assertIn("default-src 'self'", res.getheader("Content-Security-Policy"))
 
+    def test_video_supports_range_requests(self):
+        res, data = self.request("GET", "/assets/video/hero-960.mp4", headers={"Range": "bytes=0-99"})
+        self.assertEqual(res.status, 206)
+        self.assertEqual(len(data), 100)
+        self.assertTrue(res.getheader("Content-Range").startswith("bytes 0-99/"))
+        res, _ = self.request("GET", "/assets/video/hero-960.mp4", headers={"Range": "bytes=999999999-"})
+        self.assertEqual(res.status, 416)
+
+    def test_static_snapshot_json_is_public_but_data_dir_is_not(self):
+        self.assertEqual(self.request("GET", "/assets/data/menu.json")[0].status, 200)
+        self.assertEqual(self.request("GET", "/data/menu.json")[0].status, 404)
+
     def test_panel_without_slash_redirects(self):
         res, _ = self.request("GET", "/panel")
         self.assertEqual((res.status, res.getheader("Location")), (301, "/panel/"))

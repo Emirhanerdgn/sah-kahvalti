@@ -86,6 +86,25 @@
       : `Şu an kapalı · ${nextDay} ${C.hours.open}'da açılır`;
   }
 
+  /* ---------- Giriş videosu ---------- */
+  function initHeroVideo() {
+    const video = $('#heroVideo');
+    if (!video) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = navigator.connection && navigator.connection.saveData;
+    if (reduce || saveData) {
+      video.removeAttribute('autoplay');
+      video.pause();
+      return;
+    }
+    // bazı tarayıcılar autoplay'i sessiz olsa da ilk denemede reddedebilir
+    video.muted = true;
+    const tryPlay = () => video.play().catch(() => {});
+    tryPlay();
+    // sekme arka plandayken durdur, pil ve veri harcamasın
+    document.addEventListener('visibilitychange', () => (document.hidden ? video.pause() : tryPlay()));
+  }
+
   /* ---------- Navigasyon ---------- */
   function initNav() {
     const nav = $('#nav');
@@ -184,6 +203,7 @@
   }
 
   renderImages();
+  initHeroVideo();
   renderContent();
   renderOpenStatus();
   initNav();

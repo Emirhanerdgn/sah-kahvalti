@@ -15,12 +15,14 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" sizes="64x64" href="assets/brand/favicon-64.png">
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+  <link rel="preload" as="image" href="assets/video/hero-poster.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..800,50;1,9..144,300..800,50&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/shop.css">
   <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/hero-video.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -68,14 +70,20 @@
 
   <main id="main">
     <!-- HERO -->
-    <section class="hero" id="top" aria-labelledby="hero-title">
+    <section class="hero hero--video" id="top" aria-labelledby="hero-title">
+      <div class="hero-media" aria-hidden="true">
+        <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-poster.jpg" disablepictureinpicture>
+          <source src="assets/video/hero-960.mp4" type="video/mp4" media="(max-width: 760px)">
+          <source src="assets/video/hero-1280.mp4" type="video/mp4">
+        </video>
+      </div>
       <div class="hero-copy">
         <p class="eyebrow"><span class="dot" id="openDot"></span><span id="openStatus">Her gün 09.00 – 20.00</span></p>
         <h1 id="hero-title" class="reveal">Sofra kurulur,<br><em>sınır konmaz.</em></h1>
         <p class="lead reveal">Kaynaklar'ın ağaçları altında, Konyalı Seyhan Bacı'nın sacından yeni inmiş gözlemeler ve bitmeyen demlik çayla <strong>sınırsız serpme kahvaltı</strong>.</p>
         <div class="hero-cta reveal">
           <a class="btn" href="#rezervasyon">Rezervasyon yap</a>
-          <a class="btn btn-ghost" href="#sofra">Sofrada neler var?</a>
+          <a class="btn btn-ghost-light" href="#menu">Menüyü gör</a>
         </div>
         <dl class="hero-facts reveal">
           <div><dt>4.4</dt><dd>Google puanı · 400+ yorum</dd></div>
@@ -85,8 +93,6 @@
       </div>
 
       <div class="hero-visual">
-        <figure class="hero-img hero-img-main"><img data-img="hero" alt="Çiçeklerin önünde gözleme, domates, biber ve bakır maşrapada ayran" width="900" height="1100" fetchpriority="high"></figure>
-        <figure class="hero-img hero-img-small"><img data-img="heroSmall" alt="Bakır tavada uzayan eritilmiş kaşar" width="360" height="440" loading="lazy"></figure>
         <svg class="stamp" viewBox="0 0 200 200" aria-hidden="true">
           <defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
           <text><textPath href="#circ">KONYALI SEYHAN BACI'NIN YERİ · KAYNAKLAR · BUCA · </textPath></text>
