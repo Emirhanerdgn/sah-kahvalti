@@ -1,0 +1,156 @@
+{
+  "serpme": {
+    "price": 40000,
+    "note": "Kişi başı · minimum 2 kişilik",
+    "detail": "Menemen ve peynir tabağı sınırlıdır, diğer tüm ürünler sınırsızdır."
+  },
+  "sections": [
+    {
+      "id": "gozleme",
+      "title": "Gözleme",
+      "items": [
+        {
+          "name": "Otlu peynirli",
+          "price": 17500
+        },
+        {
+          "name": "Patatesli",
+          "price": 17500
+        },
+        {
+          "name": "Kaşarlı",
+          "price": 17500
+        },
+        {
+          "name": "Lorlu",
+          "price": 17500
+        },
+        {
+          "name": "Patlıcanlı",
+          "price": 20000
+        },
+        {
+          "name": "Kıymalı",
+          "price": 22500
+        },
+        {
+          "name": "Sucuklu",
+          "price": 22500
+        },
+        {
+          "name": "Kavurmalı",
+          "price": 22500
+        },
+        {
+          "name": "Karışık",
+          "price": 25000
+        },
+        {
+          "name": "Ekstra kaşar",
+          "price": 2500,
+          "addon": true
+        }
+      ]
+    },
+    {
+      "id": "sicak-kahvaltilar",
+      "title": "Sıcak Kahvaltılar",
+      "items": [
+        {
+          "name": "Sucuklu yumurta",
+          "price": 30000
+        },
+        {
+          "name": "Mıhlama",
+          "price": 30000
+        },
+        {
+          "name": "Kavurmalı yumurta",
+          "price": 30000
+        }
+      ]
+    },
+    {
+      "id": "ana-yemekler",
+      "title": "Ana Yemekler",
+      "items": [
+        {
+          "name": "Saç kavurma",
+          "price": 50000
+        },
+        {
+          "name": "Mantı",
+          "price": 30000
+        },
+        {
+          "name": "Sarma",
+          "price": 30000
+        }
+      ]
+    },
+    {
+      "id": "aperatifler",
+      "title": "Aperatifler",
+      "items": [
+        {
+          "name": "Patates kızartması",
+          "price": 20000
+        },
+        {
+          "name": "Karışık kızartma",
+          "price": 25000
+        },
+        {
+          "name": "Pişi porsiyon",
+          "price": 20000
+        }
+      ]
+    },
+    {
+      "id": "icecekler",
+      "title": "İçecekler",
+      "items": [
+        {
+          "name": "Su",
+          "price": 2500
+        },
+        {
+          "name": "Çay",
+          "price": 2500
+        },
+        {
+          "name": "Türk kahvesi",
+          "price": 8000
+        },
+        {
+          "name": "Ayran",
+          "price": 3500
+        },
+        {
+          "name": "Maden suyu (sade)",
+          "price": 3000
+        },
+        {
+          "name": "Maden suyu (meyveli)",
+          "price": 4000
+        },
+        {
+          "name": "Kola",
+          "price": 8000
+        },
+        {
+          "name": "Fanta",
+          "price": 8000
+        },
+        {
+          "name": "Ice tea",
+          "price": 8000
+        },
+        {
+          "name": "Gazoz",
+          "price": 8000
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Kiler Paneli — Şah</title>
+  <meta name="theme-color" content="#2b1d14">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/brand/favicon-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50;1,9..144,300..700,50&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <!-- GİRİŞ -->
+  <main class="login" id="login" hidden>
+    <form class="login-card" id="loginForm">
+      <img class="login-logo" src="../assets/brand/logo-160.png" alt="" width="96" height="96">
+      <h1>Kiler Paneli</h1>
+      <p>Şah Gözleme &amp; Kahvaltı Salonu</p>
+      <label for="pw">Şifre</label>
+      <input id="pw" name="password" type="password" autocomplete="current-password" required>
+      <p class="error" id="loginError" role="alert" hidden></p>
+      <button class="btn" type="submit">Giriş yap</button>
+      <a class="back" href="../">← Siteye dön</a>
+    </form>
+  </main>
+
+  <!-- UYGULAMA -->
+  <div class="app" id="app" hidden>
+    <header class="top">
+      <a class="brand" href="../" title="Siteyi aç"><img class="brand-logo" src="../assets/brand/logo-160.png" alt="" width="40" height="40"><span>Kiler<small>Panel</small></span></a>
+      <nav class="tabs" aria-label="Panel bölümleri">
+        <button type="button" class="tab" data-view="orders" aria-current="page">Siparişler <b class="pill" id="newCount" hidden>0</b></button>
+        <button type="button" class="tab" data-view="products">Ürünler</button>
+        <button type="button" class="tab" data-view="menu">Menü</button>
+        <button type="button" class="tab" data-view="settings">Ayarlar</button>
+      </nav>
+      <button type="button" class="ghost" id="logout">Çıkış</button>
+    </header>
+
+    <main class="content">
+      <!-- SİPARİŞLER -->
+      <section class="view" id="view-orders" aria-labelledby="orders-title">
+        <div class="view-head">
+          <h1 id="orders-title">Siparişler</h1>
+          <button type="button" class="ghost" id="refreshOrders">Yenile</button>
+        </div>
+        <dl class="stats" id="stats"></dl>
+        <div class="chips" id="orderFilters"></div>
+        <div class="order-list" id="orderList"></div>
+        <p class="empty" id="ordersEmpty" hidden>Bu filtrede sipariş yok.</p>
+      </section>
+
+      <!-- ÜRÜNLER -->
+      <section class="view" id="view-products" aria-labelledby="products-title" hidden>
+        <div class="view-head">
+          <h1 id="products-title">Ürünler</h1>
+          <button type="button" class="btn" id="newProduct">+ Yeni ürün</button>
+        </div>
+        <p class="hint">Kavanoz fotoğraflarınız hazır olunca ürünü açıp “Görsel yükle” ile değiştirin. Kare ya da dikey (4:5) fotoğraf en iyi sonucu verir.</p>
+        <div class="product-admin-grid" id="productList"></div>
+      </section>
+
+      <!-- MENÜ -->
+      <section class="view" id="view-menu" aria-labelledby="menu-title" hidden>
+        <div class="view-head">
+          <h1 id="menu-title">Menü</h1>
+          <a class="ghost" href="../#menu" target="_blank" rel="noopener">Sitede gör ↗</a>
+        </div>
+        <p class="hint">Fiyatları TL olarak yazın (örn. 175 veya 17,50). Değişiklikler “Menüyü kaydet” deyince sitede görünür.</p>
+        <form id="menuForm" novalidate>
+          <div class="card menu-serpme">
+            <h2>Serpme kahvaltı</h2>
+            <div class="row3">
+              <div class="field"><label for="mSerpPrice">Kişi başı fiyat (₺)</label><input id="mSerpPrice" name="serpPrice" inputmode="decimal" required></div>
+              <div class="field"><label for="mSerpNote">Kısa not</label><input id="mSerpNote" name="serpNote" maxlength="80"></div>
+            </div>
+            <div class="field"><label for="mSerpDetail">Açıklama</label><input id="mSerpDetail" name="serpDetail" maxlength="200"></div>
+          </div>
+          <div class="menu-sections" id="menuSections"></div>
+          <div class="menu-actions">
+            <button type="button" class="ghost" id="addSection">+ Bölüm ekle</button>
+            <p class="error" id="menuError" role="alert" hidden></p>
+            <button class="btn" type="submit">Menüyü kaydet</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- AYARLAR -->
+      <section class="view" id="view-settings" aria-labelledby="settings-title" hidden>
+        <div class="view-head"><h1 id="settings-title">Ayarlar</h1></div>
+        <form class="card settings" id="settingsForm" novalidate>
+          <label class="switch"><input type="checkbox" name="shopOpen"><span>Kiler sipariş alıyor</span></label>
+          <div class="row">
+            <div class="field"><label for="sFee">Kargo ücreti (₺)</label><input id="sFee" name="shippingFee" inputmode="decimal" required></div>
+            <div class="field"><label for="sFree">Ücretsiz kargo limiti (₺) <small>0 = kapalı</small></label><input id="sFree" name="freeShippingMin" inputmode="decimal" required></div>
+          </div>
+          <div class="field"><label for="sNotice">Mağaza duyurusu</label><input id="sNotice" name="notice" maxlength="300"></div>
+          <div class="field">
+            <label for="sBank">Havale bilgisi <small>(yalnızca havale seçen müşteriye, sipariş sonrası gösterilir)</small></label>
+            <textarea id="sBank" name="bankInfo" rows="4" maxlength="400" placeholder="Banka adı, hesap sahibi, IBAN…"></textarea>
+          </div>
+          <p class="error" id="settingsError" role="alert" hidden></p>
+          <button class="btn" type="submit">Kaydet</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- ÜRÜN FORMU -->
+  <dialog class="modal" id="productDialog" aria-labelledby="pd-title">
+    <form id="productForm" novalidate>
+      <header><h2 id="pd-title">Ürün</h2><button type="button" class="x" data-close aria-label="Kapat">✕</button></header>
+      <div class="modal-body">
+        <div class="image-pick">
+          <img id="pdPreview" alt="Ürün görseli önizleme" width="200" height="240">
+          <label class="ghost upload">Görsel yükle<input type="file" id="pdFile" accept="image/jpeg,image/png,image/webp" hidden></label>
+          <small id="pdUploadState"></small>
+          <input type="hidden" name="image">
+        </div>
+        <div class="fields">
+          <div class="field"><label for="pdName">Ürün adı</label><input id="pdName" name="name" maxlength="80" required></div>
+          <div class="row">
+            <div class="field"><label for="pdCat">Kategori</label><select id="pdCat" name="category" required></select></div>
+            <div class="field"><label for="pdSize">Gramaj / hacim</label><input id="pdSize" name="size" maxlength="30" placeholder="380 g"></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="pdPrice">Fiyat (₺)</label><input id="pdPrice" name="price" inputmode="decimal" required></div>
+            <div class="field"><label for="pdStock">Stok (adet)</label><input id="pdStock" name="stock" type="number" min="0" max="100000" required></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="pdBadge">Etiket <small>(örn. Organik)</small></label><input id="pdBadge" name="badge" maxlength="24"></div>
+            <div class="field"><label for="pdSort">Sıra</label><input id="pdSort" name="sort" type="number" min="0" max="9999"></div>
+          </div>
+          <div class="field"><label for="pdDesc">Açıklama</label><textarea id="pdDesc" name="description" rows="3" maxlength="600"></textarea></div>
+          <label class="switch"><input type="checkbox" name="active"><span>Sitede göster</span></label>
+          <p class="error" id="productError" role="alert" hidden></p>
+        </div>
+      </div>
+      <footer>
+        <button type="button" class="danger" id="pdDelete" hidden>Ürünü sil</button>
+        <button class="btn" type="submit">Kaydet</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="panel.js"></script>
+</body>
+</html>

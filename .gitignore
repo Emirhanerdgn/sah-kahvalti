@@ -1,0 +1,8 @@
+.env
+# müşteri siparişleri ve havale bilgisi asla yayınlanmaz
+data/orders.json
+data/settings.json
+data/*.tmp
+assets/uploads/
+__pycache__/
+*.tmp
